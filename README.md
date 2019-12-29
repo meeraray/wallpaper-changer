@@ -1,5 +1,5 @@
-# wallpaper-changer
-Changes desktop wallpaper every sunrise and sunset
+# Wallpaper Changer
+Changes desktop wallpaper every sunrise and sunset, so there's one shown at night and one shown in the daytime.
 
 To import the required dependencies, run `pip install -r requirements.txt`.
 Run **UI.py** to set up the images you want to use and then **wallpaper.pyw** to get it working.
