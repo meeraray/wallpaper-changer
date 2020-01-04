@@ -16,6 +16,7 @@ def store(key, entry):
 	shelfFile[key] = entry
 	shelfFile.close()
 def retrieve(key):
+	global path
 	shelfFile = shelve.open(path + "/data")
 	try:
 		return shelfFile[key]

@@ -14,11 +14,11 @@ def store(key, entry):
 	shelfFile[key] = entry
 	shelfFile.close()
 def retrieve(key):
-	shelfFile = shelve.open(path + "/data")
 	try:
+		shelfFile = shelve.open(path + "/data")
 		return shelfFile[key]
 	except:
-		print("Invalid Key")
+		print("Invalid Key or File not found")
 		return -1
 
 def updateLocation():
@@ -68,10 +68,16 @@ def calcTimes():
 	print(sunrise, sunset)
 	
 def changeToDay():
+	daytime = retrieve("daytime")
+	if(daytime == 0 or daytime == -1 or not daytime.endswith((".jpg", ".JPG", ".jpeg", ".JPEG", ".png", ".PNG", ".gif", ".GIF"))):
+		return
 	ctypes.windll.user32.SystemParametersInfoW(20, 0, DAY, 0)
 	# return schedule.CancelJob
 	
 def changeToNight():
+	nighttime = retrieve("nighttime")
+	if(nighttime == 0 or nighttime == -1 or not nighttime.endswith((".jpg", ".JPG", ".jpeg", ".JPEG", ".png", ".PNG", ".gif", ".GIF"))):
+		return
 	ctypes.windll.user32.SystemParametersInfoW(20, 0, NIGHT, 0)
 	# return schedule.CancelJob
 	
@@ -102,7 +108,7 @@ def comb():
 		calcTimes()
 	else:
 		print("off or error")
-
+	# print("updated program running")
 #every 1 minute check 
 if __name__ == "__main__":
 	schedule.every(1).minutes.do(comb)
@@ -110,7 +116,7 @@ if __name__ == "__main__":
 
 	updateLocation()
 	calcTimes()
-
+	
 	while(True):
 		schedule.run_pending()
 		time.sleep(1)
